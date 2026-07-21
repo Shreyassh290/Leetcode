@@ -9,27 +9,31 @@
  * }
  */
 class Solution {
-    public ListNode insertionSortList(ListNode head) {
-       if(head==null || head.next==null){
-        return head;
-       }
-       ListNode n=new ListNode(0);
-       n.next=head;
-       ListNode t=head;
-       ListNode t1=head;
-       int min=Integer.MAX_VALUE;
-       while(t!=null && t.next!=null){
-        t1=head;
-        while(t1!=null && t1.next!=null){
-         if(t1.next!=null && t1.val>t1.next.val){
-            int te=t1.val;
-            t1.val=t1.next.val;
-            t1.next.val=te;
-         }
-         t1=t1.next;
+    static int size(ListNode head){
+        int c=0;
+        ListNode temp=head;
+        while(temp!=null){
+            c++;
+            temp=temp.next;
         }
-        t=t.next;
-       }
-       return head;
+        return c;
+    }
+    public ListNode insertionSortList(ListNode head) {
+       ListNode temp=head;
+      int s=size(head);
+      int arr[]=new int[s];
+      for(int i=0;i<s;i++){
+        arr[i]=temp.val;
+        temp=temp.next;
+      }
+      Arrays.sort(arr);
+      ListNode r=new ListNode(0);
+      temp=r;
+      for(int i=0;i<s;i++){
+        ListNode n=new ListNode(arr[i]);
+        temp.next=n;
+        temp=temp.next;
+      }
+      return r.next;
     }
 }
